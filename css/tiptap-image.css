@@ -1,0 +1,952 @@
+/* Tiptap Image Upload and Resize Styles */
+
+/* Drag and drop styles */
+.tiptap-editor.drag-over {
+  border-color: rgb(59 130 246) !important;
+  background-color: rgb(239 246 255);
+  position: relative;
+}
+
+.dark .tiptap-editor.drag-over {
+  border-color: rgb(96 165 250) !important;
+  background-color: rgb(30 58 138);
+}
+
+/* Upload progress styles */
+.upload-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  z-index: 1000;
+  min-width: 200px;
+  text-align: center;
+}
+
+.dark .upload-progress {
+  background: rgba(255, 255, 255, 0.9);
+  color: rgb(30 41 59);
+}
+
+.upload-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.upload-progress-fill {
+  height: 100%;
+  background: rgb(34 197 94);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Image resize overlay styles */
+.image-resize-overlay {
+  box-sizing: border-box;
+}
+
+.image-resize-overlay .resize-handle {
+  transition: all 0.2s ease;
+}
+
+.image-resize-overlay .resize-handle:hover {
+  background: rgb(29 78 216) !important;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Resizable image container */
+.image-resizable {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.image-resizable img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.image-resizable.selected {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+}
+
+/* Image resize handles */
+.resize-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgb(59 130 246);
+  border: 1px solid white;
+  border-radius: 50%;
+  z-index: 1001;
+  transition: all 0.2s ease;
+}
+
+.resize-handle:hover {
+  background: rgb(29 78 216);
+  transform: scale(1.2);
+}
+
+.resize-handle.resize-nw {
+  top: -4px;
+  left: -4px;
+  cursor: nw-resize;
+}
+
+.resize-handle.resize-ne {
+  top: -4px;
+  right: -4px;
+  cursor: ne-resize;
+}
+
+.resize-handle.resize-sw {
+  bottom: -4px;
+  left: -4px;
+  cursor: sw-resize;
+}
+
+.resize-handle.resize-se {
+  bottom: -4px;
+  right: -4px;
+  cursor: se-resize;
+}
+
+/* Dark mode adjustments */
+.dark .resize-handle {
+  background: rgb(96 165 250);
+  border-color: rgb(30 41 59);
+}
+
+.dark .resize-handle:hover {
+  background: rgb(59 130 246);
+}
+
+.dark .image-resizable.selected {
+  outline-color: rgb(96 165 250);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .resize-handle {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .resize-handle.resize-nw {
+    top: -6px;
+    left: -6px;
+  }
+  
+  .resize-handle.resize-ne {
+    top: -6px;
+    right: -6px;
+  }
+  
+  .resize-handle.resize-sw {
+    bottom: -6px;
+    left: -6px;
+  }
+  
+  .resize-handle.resize-se {
+    bottom: -6px;
+    right: -6px;
+  }
+}
+
+/* Image upload button styles - simplified to avoid animation conflicts */
+.image-upload-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-upload-button.uploading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Removed ::after pseudo-element animation to prevent double animation */
+
+/* Upload error styles */
+.upload-error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgb(239 68 68);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0 0 0.375rem 0.375rem;
+  font-size: 0.75rem;
+  z-index: 1000;
+}
+
+.dark .upload-error {
+  background: rgb(220 38 38);
+}
+
+/* Accessibility improvements */
+.resize-handle:focus {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+}
+
+.dark .resize-handle:focus {
+  outline-color: rgb(96 165 250);
+}
+
+/* Smooth transitions for image operations */
+.tiptap-editor-content img {
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.tiptap-editor-content img:hover {
+  opacity: 0.9;
+}
+
+/* Print styles */
+@media print {
+  .image-resize-overlay,
+  .resize-handle,
+  .upload-progress {
+    display: none !important;
+  }
+}
+
+/* Image Resize Floating Toggle Styles */
+.image-resize-toggle {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.image-resize-toggle * {
+  box-sizing: border-box;
+}
+
+.image-resize-toggle input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.image-resize-toggle input[type="number"]::-webkit-outer-spin-button,
+.image-resize-toggle input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.image-resize-toggle input:focus {
+  outline: none;
+  border-color: #3b82f6 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.image-resize-toggle button {
+  font-family: inherit;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+.image-resize-toggle button:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.image-resize-toggle button:hover {
+  transform: translateY(-1px);
+}
+
+/* Dark mode adjustments for floating toggle */
+.dark .image-resize-toggle {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark .image-resize-toggle input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark .image-resize-toggle input:focus {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #60a5fa !important;
+}
+
+.dark .image-resize-toggle #apply-resize {
+  background: #2563eb !important;
+}
+
+.dark .image-resize-toggle #apply-resize:hover {
+  background: #1d4ed8 !important;
+}
+
+.dark .image-resize-toggle #close-toggle {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #94a3b8 !important;
+}
+
+.dark .image-resize-toggle #close-toggle:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Success feedback styles */
+.resize-success-feedback {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Enhanced figure selection styles */
+.tiptap-editor-content figure.image {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin: 8px 0;
+}
+
+/* Make images clickable */
+.tiptap-editor-content figure.image img {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.tiptap-editor-content figure.image:hover img {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Resize hint overlay */
+.tiptap-editor-content figure.image::after {
+  content: '🖼️ Click to resize';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.tiptap-editor-content figure.image:hover::after {
+  opacity: 1;
+}
+
+/* Dark mode support */
+.dark .tiptap-editor-content figure.image:hover img {
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
+/* Ensure images in figures are properly sized */
+.tiptap-editor-content figure.image.image_resized {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.tiptap-editor-content figure.image.image_resized img {
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive adjustments for floating toggle */
+@media (max-width: 768px) {
+  .image-resize-toggle {
+    min-width: 180px;
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+  
+  .image-resize-toggle input {
+    width: 50px;
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+  
+  .image-resize-toggle button {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
+
+/* Print styles - hide toggle when printing */
+@media print {
+  .image-resize-toggle,
+  .resize-success-feedback {
+    display: none !important;
+  }
+}
+
+/* Google Drive iframe resize styles */
+.gdrive-resize-icon {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  user-select: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.gdrive-resize-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.gdrive-resize-toggle {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.gdrive-resize-toggle * {
+  box-sizing: border-box;
+}
+
+.gdrive-resize-toggle input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.gdrive-resize-toggle input[type="number"]::-webkit-outer-spin-button,
+.gdrive-resize-toggle input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.gdrive-resize-toggle input:focus {
+  outline: none;
+  border-color: #3b82f6 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.gdrive-resize-toggle button {
+  font-family: inherit;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+.gdrive-resize-toggle button:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.gdrive-resize-toggle button:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+/* Dark mode adjustments for Google Drive toggle */
+.dark .gdrive-resize-toggle {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark .gdrive-resize-toggle input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark .gdrive-resize-toggle input:focus {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #60a5fa !important;
+}
+
+.dark .gdrive-resize-toggle #gdrive-apply-resize {
+  background: #2563eb !important;
+}
+
+.dark .gdrive-resize-toggle #gdrive-apply-resize:hover {
+  background: #1d4ed8 !important;
+}
+
+.dark .gdrive-resize-toggle #gdrive-close-toggle {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #94a3b8 !important;
+}
+
+.dark .gdrive-resize-toggle #gdrive-close-toggle:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Success and error feedback for Google Drive */
+.gdrive-resize-success-feedback {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.gdrive-resize-error-feedback {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Enhanced iframe hover effects */
+.tiptap-editor-content iframe[src*="drive.google.com"] {
+  transition: all 0.2s ease;
+  position: relative;
+  /* Ensure iframe respects its width/height attributes */
+  display: block;
+  object-fit: contain;
+  /* Prevent iframe from being smaller than its content */
+  min-width: 200px;
+  min-height: 150px;
+  /* Maintain proper aspect ratio when resized */
+  aspect-ratio: attr(width) / attr(height);
+}
+
+.tiptap-editor-content iframe[src*="drive.google.com"]:hover {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Ensure iframe dimensions are preserved exactly as set */
+.tiptap-editor-content iframe[src*="drive.google.com"][width][height] {
+  width: attr(width px) !important;
+  height: attr(height px) !important;
+  max-width: 100% !important;
+  /* Use CSS custom properties for dynamic width/height when needed */
+  --iframe-width: attr(width px);
+  --iframe-height: attr(height px);
+}
+
+/* Fallback for when CSS attr() isn't fully supported */
+.tiptap-editor-content iframe[src*="drive.google.com"] {
+  /* This will be overridden by inline styles, but provides a fallback */
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive adjustments for Google Drive toggle */
+@media (max-width: 768px) {
+  .gdrive-resize-toggle {
+    min-width: 240px;
+    font-size: 13px;
+    padding: 12px 16px;
+  }
+  
+  .gdrive-resize-toggle input {
+    width: 70px;
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  
+  .gdrive-resize-toggle button {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+/* Print styles - hide Google Drive resize elements when printing */
+@media print {
+  .gdrive-resize-icon,
+  .gdrive-resize-toggle,
+  .gdrive-resize-success-feedback,
+  .gdrive-resize-error-feedback {
+    display: none !important;
+  }
+}
+
+/* Enhanced positioning constraints for floating elements */
+.image-resize-toggle,
+.gdrive-resize-toggle {
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  overflow: visible;
+  pointer-events: auto;
+}
+
+/* Ensure floating elements don't interfere with editor scrolling */
+.tiptap-editor {
+  position: relative;
+  overflow: visible;
+}
+
+.tiptap-editor .image-resize-toggle,
+.tiptap-editor .gdrive-resize-toggle,
+.tiptap-editor .gdrive-resize-icon {
+  position: fixed;
+  z-index: 1004; /* Higher than editor content */
+}
+
+/* Prevent floating elements from going outside editor bounds */
+.image-resize-toggle[data-constrained="true"],
+.gdrive-resize-toggle[data-constrained="true"] {
+  position: absolute !important;
+  z-index: 1002;
+}
+
+/* Enhanced visibility for floating icon when near editor edges */
+.gdrive-resize-icon {
+  min-width: 24px;
+  min-height: 24px;
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments for constrained positioning */
+@media (max-width: 768px) {
+  .image-resize-toggle,
+  .gdrive-resize-toggle {
+    max-width: calc(100vw - 20px);
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
+  .gdrive-resize-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+/* Enhanced toolbar and floating elements structure - preserve existing scroll */
+.tiptap-editor {
+  /* Don't override existing layout that might affect scroll */
+  position: relative;
+  min-height: 200px;
+  /* Remove flex layout to preserve existing editor structure */
+}
+
+.tiptap-toolbar {
+  /* Keep toolbar positioning but don't interfere with content scroll */
+  position: relative; /* Changed from sticky to avoid scroll interference */
+  z-index: 1005;
+  background: inherit;
+  padding: 8px;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .tiptap-toolbar {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.tiptap-content,
+.ProseMirror {
+  /* Preserve existing scroll behavior and layout */
+  position: relative;
+  /* Don't override existing overflow properties */
+  padding: 16px;
+  min-height: 150px;
+}
+
+/* Floating elements positioning */
+.gdrive-resize-icon,
+.image-resize-toggle,
+.gdrive-resize-toggle {
+  position: absolute !important; /* Override fixed positioning */
+  z-index: 1004;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ensure proper stacking context */
+.tiptap-editor {
+  isolation: isolate;
+}
+
+.tiptap-toolbar {
+  isolation: isolate;
+  z-index: 1005;
+}
+
+/* Prevent toolbar overlap */
+.tiptap-content .gdrive-resize-icon,
+.ProseMirror .gdrive-resize-icon,
+.tiptap-content .image-resize-toggle,
+.ProseMirror .image-resize-toggle,
+.tiptap-content .gdrive-resize-toggle,
+.ProseMirror .gdrive-resize-toggle {
+  top: calc(var(--toolbar-height, 48px) + 8px);
+}
+
+/* Handle nested editor cases */
+.tiptap-editor .tiptap-editor {
+  position: relative;
+}
+
+/* Smooth transitions */
+.gdrive-resize-icon,
+.image-resize-toggle,
+.gdrive-resize-toggle {
+  transition: transform 0.2s ease-out;
+}
+
+.gdrive-resize-icon:hover,
+.image-resize-toggle:hover,
+.gdrive-resize-toggle:hover {
+  transform: translateZ(0) scale(1.02);
+}
+
+/* Ensure proper positioning in existing editor layout */
+.tiptap-editor {
+  /* Use existing editor layout and scroll behavior */
+  position: relative;
+}
+
+/* Visibility transitions for floating elements */
+.gdrive-resize-icon,
+.image-resize-toggle,
+.gdrive-resize-toggle {
+  opacity: 1;
+  visibility: visible;
+  transition: 
+    opacity 0.2s ease-out,
+    visibility 0.2s ease-out,
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gdrive-resize-icon[style*="display: none"],
+.image-resize-toggle[style*="display: none"],
+.gdrive-resize-toggle[style*="display: none"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Use existing editor scroll behavior - no additional scroll modifications needed */
+
+/* Ensure proper z-index stacking during scroll */
+.gdrive-resize-icon {
+  z-index: 1004;
+  position: fixed;
+  will-change: top, left, opacity;
+}
+
+.image-resize-toggle,
+.gdrive-resize-toggle {
+  z-index: 1003;
+  position: fixed;
+  will-change: top, left, opacity;
+}
+
+/* Prevent flickering during position updates */
+.repositioning {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Safety boundaries for floating elements */
+.gdrive-resize-icon,
+.image-resize-toggle,
+.gdrive-resize-toggle {
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 20px);
+  box-sizing: border-box;
+}
+
+/* Enhanced input field interaction in floating toggles */
+.image-resize-toggle input,
+.gdrive-resize-toggle input {
+  position: relative;
+  z-index: 1006; /* Higher than toggle itself */
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}
+
+.image-resize-toggle input:focus,
+.gdrive-resize-toggle input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+  z-index: 1007;
+}
+
+/* Ensure buttons in toggles are properly interactive */
+.image-resize-toggle button,
+.gdrive-resize-toggle button {
+  position: relative;
+  z-index: 1006;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.image-resize-toggle button:hover,
+.gdrive-resize-toggle button:hover {
+  z-index: 1007;
+}
+
+/* Prevent event interference on toggle content */
+.image-resize-toggle,
+.gdrive-resize-toggle {
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* Allow text selection only in input fields */
+.image-resize-toggle input,
+.gdrive-resize-toggle input,
+.image-resize-toggle textarea,
+.gdrive-resize-toggle textarea {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}
+
+/* Improve click target areas */
+.image-resize-toggle .form-group,
+.gdrive-resize-toggle .form-group {
+  position: relative;
+  z-index: 1005;
+}
+
+/* Prevent accidental closure from label clicks */
+.image-resize-toggle label,
+.gdrive-resize-toggle label {
+  pointer-events: none;
+}
+
+/* Enhanced focus management */
+.image-resize-toggle:focus-within,
+.gdrive-resize-toggle:focus-within {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Underline extension styles */
+.tiptap-editor-content u,
+.tiptap-editor-content [data-underline="true"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* Ensure underline works with other formatting */
+.tiptap-editor-content u strong,
+.tiptap-editor-content strong u,
+.tiptap-editor-content u em,
+.tiptap-editor-content em u {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* Dark mode adjustments for underline */
+.dark .tiptap-editor-content u {
+  text-decoration-color: currentColor;
+}
+
+/* Toolbar button styles */
+.toolbar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.toolbar-button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dark .toolbar-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-button.is-active {
+  background: rgba(59, 130, 246, 0.2);
+  color: rgb(59, 130, 246);
+}
+
+.dark .toolbar-button.is-active {
+  background: rgba(96, 165, 250, 0.2);
+  color: rgb(96, 165, 250);
+}
+
+.toolbar-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.toolbar-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: 8px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .toolbar-group {
+  border-right-color: rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-group:last-child {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.toolbar-color-picker {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+  padding: 0;
+  background: transparent;
+}
+
+.toolbar-color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.toolbar-color-picker::-webkit-color-swatch {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.dark .toolbar-color-picker::-webkit-color-swatch {
+  border-color: rgba(255, 255, 255, 0.1);
+}

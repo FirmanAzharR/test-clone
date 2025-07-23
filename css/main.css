@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme Transition and Stability */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  /* Prevent FOUC with theme transitions */
+  html {
+    transition: none !important;
+  }
+
+  html.dark {
+    transition: none !important;
+  }
+
+  /* Ensure smooth theme transitions for components */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  /* Override transitions for initial load */
+  .theme-loading * {
+    transition: none !important;
+  }
+}

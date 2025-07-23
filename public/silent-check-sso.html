@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    // Allow for more flexible origin handling to accommodate different domain configurations
+    try {
+      // First try to post to the exact origin
+      parent.postMessage(location.href, location.origin);
+      
+      // If the parent domain is different, try with wildcard
+      // This is needed when frontend and SSO are on different domains
+      setTimeout(function() {
+        parent.postMessage(location.href, "*");
+      }, 100);
+    } catch (e) {
+      // Fallback if direct approach fails
+      console.log("Error in silent-check-sso:", e);
+      parent.postMessage(location.href, "*");
+    }
+  </script>
+</head>
+<body>
+  <!-- SSO check complete -->
+</body>
+</html>

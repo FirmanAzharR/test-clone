@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    container_name: nuxt-app
+    # restart: always
+    ports:
+      - '5020:5020'
+    command: 'node .output/server/index.mjs'
+
+  # nginx:
+  #   build: ./nginx
+  #   ports:
+  #     - '8080:80'
+  #   depends_on:
+  #     - app
+
